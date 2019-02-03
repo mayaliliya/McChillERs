@@ -1,8 +1,17 @@
 import requests
 import time
+import matplotlib.pyplot as plt
+#import Image
 
+
+
+# initializing variable data
+max_occupancy = 30
+occupancy = 0
+vacancy = 0
+
+# cisco data from MV
 ZONE = "0"
-
 url = "https://n61.meraki.com/api/v0/devices/Q2GV-XLK8-MDBK/camera/analytics/live"
 
 payload = ""
@@ -13,7 +22,9 @@ headers = {
     }
 
 
-while 1 == 1:
+
+
+while 1 == 0:
     time.sleep(0.5)
     response = requests.request("GET", url, data=payload, headers=headers)
     textDict = response.json()
@@ -22,4 +33,18 @@ while 1 == 1:
     personDict = zonesDict[ZONE]
     personNum = personDict["person"]
     print(personNum)
-    
+
+    # Pie Chart graphics
+    labels = 'Vacancy', 'Occupancy'
+    occupancy = personNum
+    vacancy = max_occupancy - occupancy
+    sizes = [vacancy, occupancy]
+    colors = ['green', 'red']
+    explode = (0.1, 0)
+    plt.pie(sizes, explode=explode, labels=labels, colors=colors)
+    plt.axis('equal')
+    plt.show()
+
+
+
+
