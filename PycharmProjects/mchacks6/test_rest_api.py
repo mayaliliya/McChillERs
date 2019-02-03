@@ -1,12 +1,11 @@
 import requests
 import time
 import matplotlib.pyplot as plt
-#import Image
+import numpy as np
 
 # initializing variable data
 max_occupancy = 30
-occupancy = 0
-vacancy = 0
+
 
 # cisco data from MV
 ZONE = "0"
@@ -36,34 +35,54 @@ headers = {
 
 
 
-while 1 == 0:
+
+
+while 1 == 1:
     time.sleep(0.5)
     # camera 1
     response1 = get_response(url_1)
-    personNum1 = process_json(response.json())
+    personNum1 = process_json(response1.json())
     print("Camera one: {0}".format(personNum1))
 
     # camera 2
     response2 = get_response(url_2)
-    personNum2 = process_json(response.json())
+    personNum2 = process_json(response2.json())
     print("Camera two: {0}".format(personNum2))
 
     # camera 3
     response3 = get_response(url_3)
-    personNum3 = process_json(response.json())
+    personNum3 = process_json(response3.json())
     print("Camera three: {0}".format(personNum3))
 
 
-    # Pie Chart graphics
+    # # Pie Chart graphics
     labels = 'Vacancy', 'Occupancy'
-    occupancy = personNum
-    vacancy = max_occupancy - occupancy
-    sizes = [vacancy, occupancy]
+    occupancy1 = personNum1
+    occupancy2 = personNum2
+    occupancy3 = personNum3
+
+    vacancy1 = max_occupancy - occupancy1
+    vacancy2 = max_occupancy - occupancy2
+    vacancy3 = max_occupancy - occupancy3
+
+    sizes1 = [vacancy1, occupancy1]
+    sizes2 = [vacancy2, occupancy2]
+    sizes3 = [vacancy3, occupancy3]
+
     colors = ['green', 'red']
-    explode = (0.1, 0)
-    plt.pie(sizes, explode=explode, labels=labels, colors=colors)
-    plt.axis('equal')
-    plt.show()
+    explode = (0, 0.05)
+
+    labels = 'Vacancy\n{0} Persons'.format(sizes1[0]), 'Occupancy\n{0} Persons'.format(sizes1[1])
+    plt.pie(sizes1, shadow=True, explode=explode, labels=labels, colors=colors)
+    plt.savefig('testplot1.png')
+
+    labels = 'Vacancy\n{0} Persons'.format(sizes2[0]), 'Occupancy\n{0} Persons'.format(sizes2[1])
+    plt.pie(sizes2, shadow=True, explode=explode, labels=labels, colors=colors)
+    plt.savefig('testplot2.png')
+
+    labels = 'Vacancy\n{0} Persons'.format(sizes3[0]), 'Occupancy\n{0} Persons'.format(sizes3[1])
+    plt.pie(sizes3, shadow=True, explode=explode, labels=labels, colors=colors)
+    plt.savefig('testplot3.png')
 
 
 
