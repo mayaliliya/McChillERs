@@ -38,7 +38,8 @@ headers = {
 
 
 while 1 == 1:
-    time.sleep(0.5)
+    # set the delay time for when to grab real time data
+    time.sleep(2)
     # camera 1
     response1 = get_response(url_1)
     personNum1 = process_json(response1.json())
@@ -69,7 +70,7 @@ while 1 == 1:
     sizes2 = [vacancy2, occupancy2]
     sizes3 = [vacancy3, occupancy3]
 
-    colors = ['green', 'red']
+    colors = ['#99ff99', '#ff9999']
     explode = (0, 0.05)
 
     labels = 'Vacancy\n{0} Persons'.format(sizes1[0]), 'Occupancy\n{0} Persons'.format(sizes1[1])
